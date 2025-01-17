@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Timezone and Forex Display</title>
+</head>
+<body>
+    <div class="clock-container">
+        <h1>Timezone Display</h1>
+        <div>
+            <div>
+                <h2>Eastern Standard Time (EST):</h2>
+                <p class="time" id="est-time">Loading...</p>
+            </div>
+            <div>
+                <h2>British Summer Time (BST):</h2>
+                <p class="time" id="bst-time">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="forex-container">
+        <h1>Live GBP/JPY Data</h1>
+        <div id="tradingview-widget">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div id="tradingview_8df9f"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                    {
+                        "symbol": "FX:GBPJPY",
+                        "width": 350,
+                        "height": 220,
+                        "locale": "en",
+                        "dateRange": "12M",
+                        "colorTheme": "light",
+                        "trendLineColor": "rgba(41, 98, 255, 1)",
+                        "underLineColor": "rgba(41, 98, 255, 0.3)",
+                        "isTransparent": false,
+                        "autosize": false,
+                        "largeChartUrl": ""
+                    }
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
