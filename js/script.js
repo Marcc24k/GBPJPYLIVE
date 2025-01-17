@@ -1,6 +1,6 @@
 function updateTime() {
     const estTimeElement = document.getElementById('est-time');
-    const bstTimeElement = document.getElementById('bst-time');
+    const gmtTimeElement = document.getElementById('gmt-time');
 
     // Get the current time in UTC
     const now = new Date();
@@ -9,16 +9,15 @@ function updateTime() {
     const estOffset = -5;
     const est = new Date(now.getTime() + estOffset * 60 * 60 * 1000);
 
-    // Calculate BST (UTC+1) time
-    const bstOffset = 1;
-    const bst = new Date(now.getTime() + bstOffset * 60 * 60 * 1000);
+    // GMT time is the same as UTC time
+    const gmt = now;
 
     // Format the time as HH:mm:ss
     const formatTime = (date) => 
         date.toISOString().substr(11, 8);
 
     estTimeElement.textContent = formatTime(est);
-    bstTimeElement.textContent = formatTime(bst);
+    gmtTimeElement.textContent = formatTime(gmt);
 }
 
 // Update the time every second
@@ -26,6 +25,3 @@ setInterval(updateTime, 1000);
 
 // Initial update
 updateTime();
-
-
-
