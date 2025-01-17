@@ -1,0 +1,13 @@
+{
+    "symbol": "OANDA:GBPJPY",
+    "width": 350,
+    "height": 220,
+    "locale": "en",
+    "dateRange": "12m",
+    "colorTheme": "dark",
+    "trendLineColor": "#982dc9",
+    "underLineColor": "#388e3c",
+    "isTransparent": false,
+    "autosize": false,
+    "largeChartUrl": ""
+}
