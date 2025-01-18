@@ -13,6 +13,8 @@
    
 </head>
 <body>
+<div id="main-container">
+ 
     <div class="clock-container">
         <h1>Timezone Display</h1>
         <div>
@@ -28,14 +30,18 @@
         </div>
     </div>
 
+    <div id="market-status"></div>
+
+
     <div class="forex-container">
+        
         <h1>Live GBP/JPY Data</h1>
         <div id="tradingview-widget">
             <!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
                 <div id="tradingview_8df9f"></div>
                 <script type="text/javascript">
-                    fetch('js/widget-config.json')
+                    fetch('json/widget-config.json')
                         .then(response => response.json())
                         .then(config => {
                             const script = document.createElement('script');
@@ -50,6 +56,7 @@
             <!-- TradingView Widget END -->
         </div>
     </div>
+</div><!------MAIN CONTAINER-->
 </body>
 <script src="js/script.js"></script>
 </html>
