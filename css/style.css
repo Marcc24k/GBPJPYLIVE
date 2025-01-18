@@ -1,82 +1,76 @@
 :root {
-        --dark-accent: #4ec252;
-        --dark-alt: rgb(205, 68, 26);
-        --dark-bg: #1b1b1b;
-        --dark-error: #d32f2f;
-        --dark-primary: #2e2e2e;
-        --dark-secondary: #3a3a3a;
-        --dark-success: #388e3c;
-        --dark-text: #982dc9;
-        --dark-warning: #ac9014;
+          --dark-accent: #4ec252;
+          --dark-alt: rgb(205, 68, 26);
+          --dark-bg: #1b1b1b;
+          --dark-error: #d32f2f;
+          --dark-primary: #2e2e2e;
+          --dark-secondary: #3a3a3a;
+          --dark-success: #388e3c;
+          --dark-text: #982dc9;
+          --dark-warning: #ac9014;
   }
 body {
-        align-items: center; 
-        background-color: var(--dark-bg);
-        color: var(--dark-warning);
-        /* flex-direction: column; */
-        font-family: Arial, sans-serif;
-        font-family: "Silkscreen", serif;
-        height: 100vh;
-        margin: 0px;
-   
-    
-  }
+          align-items: center;
+          background-color: var(--dark-bg);
+          color: var(--dark-warning);
+          font-family: Arial, sans-serif;
+          font-family: "Silkscreen", serif;
+          height: 100vh;
+          margin: 0px;
 
+          /* flex-direction: column; */
+  }
   /* MAIN CONTAINER */
   #main-container{
-        position: relative;
-        width: 99%;
-        height: auto;
-        /* border: 2px solid red; */
-        background-color:var(--dark-bg);
+          background-color:var(--dark-bg);
+          height: auto;
+          position: relative;
+          width: 99%;
 
+          /* border: 2px solid red; */
   }
-
   #market-status{
-        color:green;
-        position: relative;
-        left: 25%;
-        font-family: Arial, sans-serif;
-        font-family: "Silkscreen", serif;
-        font-size: 20px;
+          color:green;
+          font-family: Arial, sans-serif;
+          font-family: "Silkscreen", serif;
+          font-size: 20px;
+          position: relative;
+          text-align: center;
+          width: 100%;
 
   }
   .clock-container{
-        background-color: var(--dark-bg);
-        border-radius: 8px;
-        text-align: center;
-        width: 100%;
+          background-color: var(--dark-bg);
+          border-radius: 8px;
+          text-align: center;
+          width: 100%;
 
-        /* margin: 0px; */
+          /* margin: 0px; */
   }
  .forex-container{
-        background-color: var(--dark-bg);
-        height: auto;
-        left: 20px;
-        margin: 0px;
-        padding: 5px;;
-        width:99%;
+          background-color: var(--dark-bg);
+          height: auto;
+          left: 20px;
+          margin: 0px;
+          padding: 5px;;
+          width:99%;
   }
-
  .tradingview-widget-container{
-        background-color: var(--dark-bg);
-       
-        padding: 15px;
-}
-
+          background-color: var(--dark-bg);
+          padding: 15px;
+  }
 h1 {
-        text-align: center;
-        font-size: 20px;
-
-color: var(--dark-accent)
-        /* margin-bottom: 10px; */
+          color: var(--dark-accent);
+          font-size: 20px;
+          text-align: center;
+          /* margin-bottom: 10px; */
   }
 h2{
-        font-size: 20px;
+          font-size: 20px;
   }
 .time {
-        color:var(--dark-text);
-        font-size: 30px;
+          color:var(--dark-text);
+          font-size: 30px;
 
-        /* margin: 10px 0; */
+          /* margin: 10px 0; */
   }
