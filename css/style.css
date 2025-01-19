@@ -29,7 +29,7 @@ body {
 
           /* border: 2px solid red; */
   }
-  #market-status{
+  #market-status, #market-timer{
           color:green;
           font-family: Arial, sans-serif;
           font-family: "Silkscreen", serif;
@@ -39,6 +39,10 @@ body {
           width: 100%;
 
   }
+ #market-timer{
+        color: var(--dark-warning);
+        padding: 10px;
+ }
   .clock-container{
           background-color: var(--dark-bg);
           border-radius: 8px;
