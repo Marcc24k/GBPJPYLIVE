@@ -3,6 +3,8 @@ function updateTime() {
     const gmtTimeElement = document.getElementById('gmt-time');
     const marketStatusElement = document.getElementById('market-status');
     const marketTimerElement = document.getElementById('market-timer');
+    const sessionStartElement = document.getElementById('session-start');
+    const sessionCloseElement = document.getElementById('session-close');
 
     // Get the current time in UTC
     const now = new Date();
@@ -53,7 +55,29 @@ function updateTime() {
         const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60)); // Convert remaining milliseconds to minutes
         marketTimer = `Market closes in ${hoursUntilClose}h ${minutesUntilClose}m`; // Set the market timer text
         document.getElementById("market-status").style.color = "green"; // Change the market status text color to green when open
+    }
 
+    // Display session start and close times
+    const sessionStart = new Date(est);
+    sessionStart.setUTCHours(19, 0, 0, 0); // 7:00 PM EST (00:00 UTC)
+    const sessionClose = new Date(est);
+    sessionClose.setUTCHours(4, 0, 0, 0); // 4:00 AM EST (09:00 UTC)
+
+    sessionStartElement.textContent = `Session Start: ${formatTime(sessionStart)}`;
+    sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
+
+    // Change text color based on session start time
+    if (now >= sessionStart && now < sessionClose) {
+        sessionStartElement.style.color = "green"; // Session is active
+    } else {
+        sessionStartElement.style.color = "red"; // Session is inactive
+    }
+
+    // Change text color based on session close time
+    if (now >= sessionClose && now < sessionStart) {
+        sessionCloseElement.style.color = "green"; // Session is active
+    } else {
+        sessionCloseElement.style.color = "red"; // Session is inactive
     }
 
     marketStatusElement.textContent = marketStatus; // Display the market status
