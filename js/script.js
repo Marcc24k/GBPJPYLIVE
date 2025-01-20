@@ -9,18 +9,27 @@ function updateTime() {
     // Get the current time in UTC
     const now = new Date();
 
+    // Calculate GMT time
+    const gmt = new Date(now.getTime());
+
     // Calculate EST (UTC-5) time
     const estOffset = -5;
     const est = new Date(now.getTime() + estOffset * 60 * 60 * 1000);
 
-    const gmt = now; // GMT time is the same as UTC time
+    // Format the time as HH:mm:ss AM/PM
+    const formatTime = (date) => {
+        let hours = date.getUTCHours();
+        const minutes = date.getUTCMinutes();
+        const seconds = date.getUTCSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        const strTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+        return strTime;
+    };
 
-    // Format the time as HH:mm:ss
-    const formatTime = (date) => 
-        date.toISOString().substr(11, 8); // Extract the time part from the ISO string
-
-    estTimeElement.textContent = formatTime(est); // Display the formatted EST time
     gmtTimeElement.textContent = formatTime(gmt); // Display the formatted GMT time
+    estTimeElement.textContent = formatTime(est); // Display the formatted EST time
 
     // Check if the market is open or closed
     const day = est.getUTCDay(); // Get the current day of the week (0-6, where 0 is Sunday)
@@ -36,21 +45,21 @@ function updateTime() {
         document.getElementById("market-status").style.color = "red"; // Change the market status text color to red
 
         // Calculate time until market opens (5 PM Sunday)
-        let nextOpen = new Date(est); // Create a new date object for the next market open time
-        nextOpen.setUTCDate(est.getUTCDate() + ((7 - est.getUTCDay()) % 7)); // Set the date to the next Sunday
-        nextOpen.setUTCHours(17, 0, 0, 0); // Set the time to 5 PM
+        let nextOpen = new Date(gmt); // Create a new date object for the next market open time
+        nextOpen.setUTCDate(gmt.getUTCDate() + ((7 - gmt.getUTCDay()) % 7)); // Set the date to the next Sunday
+        nextOpen.setUTCHours(22, 0, 0, 0); // Set the time to 5 PM EST (22:00 UTC)
 
-        const timeUntilOpen = nextOpen - est; // Calculate the time difference in milliseconds
+        const timeUntilOpen = nextOpen - gmt; // Calculate the time difference in milliseconds
         const hoursUntilOpen = Math.floor(timeUntilOpen / (1000 * 60 * 60)); // Convert milliseconds to hours
         const minutesUntilOpen = Math.floor((timeUntilOpen % (1000 * 60 * 60)) / (1000 * 60)); // Convert remaining milliseconds to minutes
         marketTimer = `Market opens in ${hoursUntilOpen}h ${minutesUntilOpen}m`; // Set the market timer text
     } else {
         // Calculate time until market closes (5 PM Friday)
-        let nextClose = new Date(est); // Create a new date object for the next market close time
-        nextClose.setUTCDate(est.getUTCDate() + ((5 - est.getUTCDay() + 7) % 7)); // Set the date to the next Friday
-        nextClose.setUTCHours(17, 0, 0, 0); // Set the time to 5 PM
+        let nextClose = new Date(gmt); // Create a new date object for the next market close time
+        nextClose.setUTCDate(gmt.getUTCDate() + ((5 - gmt.getUTCDay() + 7) % 7)); // Set the date to the next Friday
+        nextClose.setUTCHours(22, 0, 0, 0); // Set the time to 5 PM EST (22:00 UTC)
 
-        const timeUntilClose = nextClose - est; // Calculate the time difference in milliseconds
+        const timeUntilClose = nextClose - gmt; // Calculate the time difference in milliseconds
         const hoursUntilClose = Math.floor(timeUntilClose / (1000 * 60 * 60)); // Convert milliseconds to hours
         const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60)); // Convert remaining milliseconds to minutes
         marketTimer = `Market closes in ${hoursUntilClose}h ${minutesUntilClose}m`; // Set the market timer text
@@ -67,14 +76,14 @@ function updateTime() {
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (now >= sessionStart && now < sessionClose) {
+    if (gmt >= sessionStart && gmt < sessionClose) {
         sessionStartElement.style.color = "green"; // Session is active
     } else {
         sessionStartElement.style.color = "red"; // Session is inactive
     }
 
     // Change text color based on session close time
-    if (now >= sessionClose && now < sessionStart) {
+    if (gmt >= sessionClose && gmt < sessionStart) {
         sessionCloseElement.style.color = "green"; // Session is active
     } else {
         sessionCloseElement.style.color = "red"; // Session is inactive
