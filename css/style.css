@@ -63,6 +63,19 @@ body {
             background-color: var(--dark-bg);
             padding: 15px;
   }
+.forex-calendar-container {
+    background-color: var(--dark-bg);
+    padding: 15px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.forex-calendar-container h1 {
+    color: var(--dark-accent);
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
 h1 {
             color: var(--dark-accent);
             font-size: 20px;
