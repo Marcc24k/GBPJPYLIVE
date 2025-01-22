@@ -88,6 +88,17 @@ function updateTime() {
     marketTimerElement.textContent = marketTimer; // Display the market timer
 }
 
+// Function to set a cookie with SameSite=None
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/;SameSite=None;Secure";
+}
+
+// Example usage of setCookie function
+setCookie('exampleCookie', 'exampleValue', 7);
+
 // Update the time every second
 setInterval(updateTime, 1000);
 
