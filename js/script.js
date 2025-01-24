@@ -39,7 +39,7 @@ function updateTime() {
     let marketStatus = "Market Open"; // Default market status
     let marketTimer = ""; // Initialize market timer
 
-    if ((day === 5 && hours >= 17) || (day === 6) || (day === 0 && hours < 17)) {
+    if ((day === 5 && hours <= 17) || (day === 6) || (day === 0 && hours > 17)) {
         // If it's Friday after 5 PM, Saturday, or Sunday before 5 PM, the market is closed
         marketStatus = "Market Closed";
         document.getElementById("market-status").style.color = "red"; // Change the market status text color to red
@@ -76,13 +76,13 @@ function updateTime() {
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (est >= sessionStart && est < sessionClose) {
-        sessionStartElement.style.color = "green"; // Session is active
-        sessionCloseElement.style.display = "none"; // Display session close time in dark red
-    } else {
-        sessionStartElement.style.display = "none"; // Session is inactive
-        sessionCloseElement.style.color = "red"; // Session close time in green
-    }
+    // if (est >= sessionStart && est < sessionClose) {
+    //     // sessionStartElement.style.color = "green"; // Session is active
+    //     sessionCloseElement.style.color = "darkred"; // Display session close time in dark red
+    // } else {
+    //     // sessionStartElement.style.color = "red"; // Session is inactive
+    //     sessionCloseElement.style.color = "green"; // Session close time in green
+    // }
 
     marketStatusElement.textContent = marketStatus; // Display the market status
     marketTimerElement.textContent = marketTimer; // Display the market timer
