@@ -87,7 +87,7 @@ function updateTime() {
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (gmt >= sessionStart && gmt < sessionClose) {
+    if (est >= sessionStart && est < sessionClose) {
         sessionStartElement.style.color = "green"; // Session is active
         sessionCloseElement.style.color = "darkred"; // Display session close time in dark red
     } else {
