@@ -79,7 +79,7 @@ function updateTime() {
 
     // Display session start and close times
     const sessionStart = new Date(est);
-    sessionStart.setUTCHours(19, 0, 0, 0); // 7:00 PM EST (00:00 UTC)
+    sessionStart.setUTCHours(19, 0, 0, 0);// 7:00 PM EST (00:00 UTC)
     const sessionClose = new Date(est);
     sessionClose.setUTCHours(4, 0, 0, 0); // 4:00 AM EST (09:00 UTC)
 
@@ -87,9 +87,9 @@ function updateTime() {
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (est >= sessionStart && est < sessionClose) {
+    if (gmt >= sessionStart && gmt < sessionClose) {
         sessionStartElement.style.color = "green"; // Session is active
-        sessionCloseElement.style.color = "darkred"; // Display session close time in dark red
+        sessionCloseElement.style.color = "red"; // Display session close time in dark red
     } else {
         sessionStartElement.style.color = "red"; // Session is inactive
         sessionCloseElement.style.color = "green"; // Session close time in green
