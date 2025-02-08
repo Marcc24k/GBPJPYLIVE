@@ -87,12 +87,14 @@ function updateTime() {
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (gmt >= sessionStart && gmt < sessionClose) {
-        sessionStartElement.style.color = "green"; // Session is active
-        sessionCloseElement.style.color = "red"; // Display session close time in dark red
+    if (gmt >= sessionStart && gmt > sessionClose) {
+        // sessionStartElement.style.color = "green"; // Session is active
+        sessionCloseElement.style.color = "green"; // Display session close time in dark red
+        sessionStartElement.style.display = "none"; // Display session close time in dark red
     } else {
-        sessionStartElement.style.color = "red"; // Session is inactive
-        sessionCloseElement.style.color = "green"; // Session close time in green
+        sessionStartElement.style.color = "green"; // Session is inactive
+        sessionCloseElement.style.display = "none"; // Session is inactive
+        // sessionCloseElement.style.color = "green"; // Session close time in green
     }
 
     marketStatusElement.textContent = marketStatus; // Display the market status
