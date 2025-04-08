@@ -1,9 +1,20 @@
 function updateTime() {
+    // Get the HTML elements for displaying EST time
     const estTimeElement = document.getElementById('est-time');
+
+    // Get the HTML elements for displaying GMT time
     const gmtTimeElement = document.getElementById('gmt-time');
+
+    // Get the HTML element for displaying market status
     const marketStatusElement = document.getElementById('market-status');
+
+    // Get the HTML element for displaying market timer
     const marketTimerElement = document.getElementById('market-timer');
+
+    // Get the HTML element for displaying session start time
     const sessionStartElement = document.getElementById('session-start');
+
+    // Get the HTML element for displaying session close time
     const sessionCloseElement = document.getElementById('session-close');
 
     // Get the current time in UTC
@@ -18,9 +29,9 @@ function updateTime() {
 
     // Format the time as HH:mm:ss AM/PM
     const formatTime = (date) => {
-        let hours = date.getHours();
-        const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
+        let hours = date.getUTCHours();
+        const minutes = date.getUTCMinutes();
+        const seconds = date.getUTCSeconds();
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
@@ -32,9 +43,9 @@ function updateTime() {
     estTimeElement.textContent = formatTime(est); // Display the formatted EST time
 
     // Check if the market is open or closed
-    const day = est.getDay(); // Get the current day of the week (0-6, where 0 is Sunday)
-    const hours = est.getHours(); // Get the current hour in EST
-    const minutes = est.getMinutes(); // Get the current minutes in EST
+    const day = est.getUTCDay(); // Get the current day of the week (0-6, where 0 is Sunday)
+    const hours = est.getUTCHours(); // Get the current hour in UTC
+    const minutes = est.getUTCMinutes(); // Get the current minutes in UTC
 
     let marketStatus = "Market Open"; // Default market status
     let marketTimer = ""; // Initialize market timer
@@ -68,20 +79,20 @@ function updateTime() {
 
     // Display session start and close times
     const sessionStart = new Date(est);
-    sessionStart.setHours(19, 0, 0, 0); // 7:00 PM EST
+    sessionStart.setUTCHours(19, 0, 0, 0);// 7:00 PM EST (00:00 UTC)
     const sessionClose = new Date(est);
-    sessionClose.setHours(4, 0, 0, 0); // 4:00 AM EST
+    sessionClose.setUTCHours(4, 0, 0, 0); // 4:00 AM EST (09:00 UTC)
 
     sessionStartElement.textContent = `Session Start: ${formatTime(sessionStart)}`;
     sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
 
     // Change text color based on session start time
-    if (est >= sessionStart && est < sessionClose) {
-        sessionStartElement.style.color = "green"; // Session is active
+    if (gmt >= sessionStart && gmt <= sessionClose) {
+        sessionCloseElement.style.color = "#982dc9"; // Session is active
         sessionCloseElement.style.display = "none"; // Display session close time in dark red
     } else {
-        sessionStartElement.style.display = "none"; // Session is inactive
-        sessionCloseElement.style.color = "red"; // Session close time in green
+        sessionStartElement.style.color = "#982dc9"; // Session is inactive
+        sessionStartElement.style.display = "none"; // Session close time in green
     }
 
     marketStatusElement.textContent = marketStatus; // Display the market status
@@ -104,3 +115,6 @@ setInterval(updateTime, 1000);
 
 // Initial update
 updateTime();
+
+// Fetch and display Forex data
+fetchForexData();
