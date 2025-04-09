@@ -23,9 +23,15 @@ function updateTime() {
     // Calculate GMT time
     const gmt = new Date(now.getTime());
 
-    // Calculate EST (UTC-5) time
-    const estOffset = -5;
-    const est = new Date(now.getTime() + estOffset * 60 * 60 * 1000);
+  // Calculate EST (UTC-5 or UTC-4 during DST)
+const isDST = (date) => {
+    const january = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+    const july = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+    return date.getTimezoneOffset() < Math.max(january, july);
+};
+
+const estOffset = isDST(now) ? -4 : -5; // Adjust for DST
+const est = new Date(now.getTime() + estOffset * 60 * 60 * 1000);
 
     // Format the time as HH:mm:ss AM/PM
     const formatTime = (date) => {
@@ -83,20 +89,32 @@ function updateTime() {
     const sessionClose = new Date(est);
     sessionClose.setUTCHours(4, 0, 0, 0); // 4:00 AM EST (09:00 UTC)
 
-    sessionStartElement.textContent = `Session Start: ${formatTime(sessionStart)}`;
-    sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
+
 
     // Change text color based on session start time
-    if (gmt >= sessionStart && gmt <= sessionClose) {
+    if (gmt >= sessionStart || gmt < sessionClose) {
         sessionCloseElement.style.color = "#982dc9"; // Session is active
-        sessionCloseElement.style.display = "none"; // Display session close time in dark red
-    } else {
-        sessionStartElement.style.color = "#982dc9"; // Session is inactive
-        sessionStartElement.style.display = "none"; // Session close time in green
+        sessionStartElement.style.display = "none"; // Display session close time in dark red
+        console.log("Session Active"); // Log session status
+        
+    }else {
+        sessionStartElement.style.color = "#982dc9"; // Session is inactive 
+        sessionCloseElement.style.display = "none"; // Session close time in green
+        console.log("Session Inactive"); // Log session status
+
     }
 
-    marketStatusElement.textContent = marketStatus; // Display the market status
-    marketTimerElement.textContent = marketTimer; // Display the market timer
+// Display the session start time in the specified format
+sessionStartElement.textContent = `Session Start: ${formatTime(sessionStart)}`;
+
+// Display the session close time in the specified format
+sessionCloseElement.textContent = `Session Close: ${formatTime(sessionClose)}`;
+
+// Display the current market status (e.g., "Market Open" or "Market Closed")
+marketStatusElement.textContent = marketStatus;
+
+// Display the market timer (e.g., "Market opens in Xh Ym" or "Market closes in Xh Ym")
+marketTimerElement.textContent = marketTimer;
 }
 
 // Function to set a cookie with SameSite=None
