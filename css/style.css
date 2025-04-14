@@ -5,8 +5,8 @@
             --dark-error: #d32f2f;
             --dark-primary: #2e2e2e;
             --dark-secondary: #3a3a3a;
-            --dark-success: #388e3c;
             --dark-text: #982dc9;
+            --dark-success: #388e3c;
             --dark-warning: #ac9014;
   }
 body {
@@ -110,7 +110,7 @@ h2{
             /* margin: 10px 0; */
   }
 #session-start, #session-close {
-      color: var(--dark-text);
+      /* color: var(--dark-text); */
       font-family: Arial, sans-serif;
       font-family: "Silkscreen", serif;
       font-size: 20px;
